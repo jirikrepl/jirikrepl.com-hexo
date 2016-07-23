@@ -1,2 +1,2 @@
 # Generated static files for http://jirikrepl.com
-# Source Hexo blog:  
+# Hexo sources: https://github.com/jirikrepl/jirikrepl.com-hexo
