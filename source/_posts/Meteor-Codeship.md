@@ -7,10 +7,10 @@ In my last {% post_link Meteor-acceptance-testing Article %} I wrote about accep
 Much better solution is to use some Continuous Integration (CI) server. CI can build our app, install dependencies and run tests after each push to VCS.
 
 My favourite CI server right now is [Codeship](codeship.com). They have great [UX](https://en.wikipedia.org/wiki/User_experience_design) and offer free plan for Bitbucket.
-At Codeship you have to install your app and then run tests. This is done trough *project settings* at Codeship website.
+At Codeship you have to set commands which install your app and then run your tests. This is done trough *project settings* at Codeship website.
 
 ## Setup commands
-This section should install anything needed to run your app and its tests.
+This section should install anything which is needed to run your app and tests.
 
 {% codeblock lang:bash %}
     # Install node
@@ -33,7 +33,6 @@ This section should install anything needed to run your app and its tests.
 {% endcodeblock %}
 
 ## Test commands
-Use [spacejam](https://www.npmjs.com/package/spacejam) to run meteor test with command line interface.
 
 {% codeblock lang:bash %}
     cd ~/clone
@@ -49,3 +48,6 @@ Use [spacejam](https://www.npmjs.com/package/spacejam) to run meteor test with c
     # then Chimp will use that instance and run acceptance tests
     chimp --ddp=http://localhost:3000 --mocha --path=chimp/tests
 {% endcodeblock %}
+
+At line 4 and 6 use [spacejam](https://www.npmjs.com/package/spacejam) to run meteor test in command line interface.
+At line 10 run Meteor at [background](https://documentation.codeship.com/continuous-integration/run-a-command-in-the-background/).

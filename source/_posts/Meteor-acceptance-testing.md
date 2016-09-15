@@ -45,6 +45,7 @@ In this particular code to get `open()` method working, you need to install `url
     
 More on using [npm with Meteor](https://guide.meteor.com/using-npm-packages.html).
 
+{% codeblock lang:javaScript %}
     // page.js
     'use strict';
     
@@ -57,6 +58,7 @@ More on using [npm with Meteor](https://guide.meteor.com/using-npm-packages.html
             browser.url(urlModule.resolve(process.env.ROOT_URL, path));
         }
     }
+{% endcodeblock %}
     
 #### lesson.page.js    
 *lesson.page.js* extends *page.js*. It can contain any logic of real lesson's *HTML* page.
@@ -64,6 +66,7 @@ In this code `browser.element()` refers to webdriver.io instance and *element()*
  
 Note also that in [webdriver.io](http://webdriver.io/api/protocol/element.html): `client === browser`
 
+{% codeblock lang:javaScript %}
     // lesson.page.js
     'use strict';
     
@@ -91,10 +94,12 @@ Note also that in [webdriver.io](http://webdriver.io/api/protocol/element.html):
             return browser.element('#lessonName')
         }
     }
+{% endcodeblock %}
 
 #### lessonTest.js
 Finally our test file `lessonTest.js`. We use [mocha's](https://mochajs.org/#getting-started) `describe()` and `it()` functions.
 
+{% codeblock lang:javaScript %}
     // lessonTest.js
     'use strict';
     
@@ -117,6 +122,7 @@ Finally our test file `lessonTest.js`. We use [mocha's](https://mochajs.org/#get
             lessonPage.lessonName.should.equal(lessonName);
         });
     });
+{% endcodeblock %}
     
 ## Chimp
 We will run tests with [Chimp](https://chimp.readme.io/). It elegantly integrates with Meteor. Install it globally with npm:
@@ -143,6 +149,7 @@ Create config file to change behavior of *webdriver.io*.
 
 It can be handy to change time limit for [waitForVisible()](http://webdriver.io/api/utility/waitForVisible.html) method. Default time limit is 500 ms, which can be sometimes too short.
 
+{% codeblock lang:javaScript %}
      // config.js
     'use strict';
     
@@ -152,7 +159,8 @@ It can be handy to change time limit for [waitForVisible()](http://webdriver.io/
             waitforTimeout: 2000
         }
     };
-        
+{% endcodeblock %}
+
 Pass *config.js* as a first argument to *Chimp*.
 
     $ chimp chimp/config.js --ddp=http://localhost:3000 --watch --mocha --path=chimp/tests
