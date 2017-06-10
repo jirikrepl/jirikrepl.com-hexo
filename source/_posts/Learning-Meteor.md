@@ -6,7 +6,7 @@ tags:
 
 ---
 
-[Meteor](https://www.meteor.com/) is awesome. A whole platform, not just some front-end JavaScript framework.
+[Meteor](https://www.meteor.com/) is awesome. A whole platform, not just a front-end JavaScript framework.
 
 [This article](http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/) covers history web applications' development.
 I have just realized that my app does not need an [API](http://nerds.airbnb.com/wp-content/uploads/2013/11/Screen-Shot-2013-11-07-at-10.29.32-AM.png). API is for third party developers. I don't need a back-end and a front-end divided by an API.
