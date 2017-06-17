@@ -110,4 +110,89 @@ Template.lesson.onCreated(function lessonOnCreated() {
 When developing a new component write data validation first. Then you will always know that component works with right kind of data.
 When component does not have right date, you know it right away. You don't need to debug code inside the component.
 [Todos app](https://github.com/meteor/todos/blob/master/imports/ui/components/lists-show.js#L31) use this patternt a lot.
-You can also read about it more in [Meteor guide.](http://blazejs.org/guide/reusable-components.html#Validate-data-context) 
+You can also read about it more in [Meteor guide.](http://blazejs.org/guide/reusable-components.html#Validate-data-context)
+ 
+## #4 Use ESLint
+Linter will help you avoid some code errors and keep defined code style.
+For installation follow the [Meteor guide](https://guide.meteor.com/code-style.html#eslint-installing).
+
+You can put ESLint settings in *package.json*. This is how ESLint settings of [todos app](https://github.com/meteor/todos/blob/mastr/package.json) looks like.
+ 
+And this is my ESLint:
+
+```javascript
+{
+    ...    
+    "eslintConfig": {
+        "parser": "babel-eslint",
+        "parserOptions": {
+            "allowImportExportEverywhere": true
+        },
+        "plugins": [
+            "meteor"
+        ],
+        "extends": [
+            "airbnb",
+            "plugin:meteor/recommended"
+        ],
+        "rules": {
+            "import/no-extraneous-dependencies": "off",
+            "import/prefer-default-export": "off",
+            "import/no-absolute-path": "off",
+            "import/no-unresolved": [
+                2, { "ignore": ["^meteor/"] }
+            ],
+            "import/extensions": "off",
+            "no-underscore-dangle": "off",
+            "object-shorthand": [
+                "error",
+                "always",
+                {
+                    "avoidQuotes": false
+                }
+            ],
+            "object-curly-spacing": "off",
+            "meteor/eventmap-params": [
+                "error",
+                {
+                    "eventParamName": "event",
+                    "templateInstanceParamName": "instance"
+                }
+            ],
+            "meteor/template-names": [
+                "off"
+            ],
+            "indent": [
+                "error",
+                4
+            ],
+            "arrow-parens": [
+                2,
+                "as-needed",
+                {
+                    "requireForBlockBody": true
+                }
+            ],
+            "max-len": [
+                "error",
+                {
+                    "code": 140
+                }
+            ]
+        },
+        "settings": {
+            "import/resolver": "meteor"
+        }
+    },
+    "devDependencies": {
+        "babel-eslint": "^6.1.2",
+        "eslint": "^3.5.0",
+        "eslint-config-airbnb": "^11.1.0",
+        "eslint-import-resolver-meteor": "^0.3.3",
+        "eslint-plugin-import": "^1.15.0",
+        "eslint-plugin-jsx-a11y": "^2.2.2",
+        "eslint-plugin-meteor": "^4.0.0",
+        "eslint-plugin-react": "^6.2.2"
+    }
+}
+```
