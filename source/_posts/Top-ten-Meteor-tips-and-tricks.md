@@ -5,7 +5,8 @@ tags:
 ---
 
 ## #1 Use validated methods
-[Validated methods](https://github.com/meteor/validated-method) use object which represents your method. Any method can be exported in place of its definition and imported anywhere. 
+[Validated method](https://github.com/meteor/validated-method) use object which represents your method.
+Any method can be exported from the place of its definition and imported anywhere (using ES6 import/export).   
 This is better then call methods by a magic string name `Meteor.call('someMagicNameOfMethod');`
 
 Another great think is that you have build in argument validation which uses [simple schema](https://github.com/aldeed/meteor-simple-schema).
@@ -36,7 +37,6 @@ getExerciseProgress.call({lessonUrl: this.lessonUrl}, (error, result) => {
 ```
 
 
-
 ## #2 Don't use HTML comments, use Blaze comments
 
 Don't you html comments when working with Blaze:
@@ -63,3 +63,51 @@ We can write {{foo}} and it doesn't matter.
 ```
 
 See more in [documentation](http://blazejs.org/api/spacebars.html#Comment-Tags).
+
+
+## #3 Validate data context of Blaze component
+First of all you already use [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) for collection validations, right?
+Now we cant extend that to Blaze components.
+
+Consider definition of Lessons collection:
+```javascript
+// imports/api/lessons/lessons.js
+
+export const Lessons = new Meteor.Collection("lessons");
+
+Lessons.schema = new SimpleSchema({
+    _id: {type: String, regEx: SimpleSchema.RegEx.Id},
+    name: {type: String, min: 1},    
+    description: {type: String, optional: true},    
+});
+Lessons.attachSchema(Lessons.schema);
+```
+
+And then consider lesson component to be reusable component which works lessons data:
+
+```html
+{{! /imports/ui/lessons/lessons.html}}
+{{> lesson lessonUrl=lessonUrl description=description }}
+```
+
+And then validate `Template.currentData()`.
+
+```javascript
+// imports/ui/lessons/lessons.js
+
+Template.lesson.onCreated(function lessonOnCreated() {
+    this.autorun(() => {
+        new SimpleSchema({
+            lessonUrl: {type: Lessons.simpleSchema().schema('lessonUrl')},
+            description: {type: Lessons.simpleSchema().schema('description')},
+        }).validate(Template.currentData());
+    });
+    
+    ...
+});
+```
+
+When developing a new component write data validation first. Then you will always know that component works with right kind of data.
+When component does not have right date, you know it right away. You don't need to debug code inside the component.
+[Todos app](https://github.com/meteor/todos/blob/master/imports/ui/components/lists-show.js#L31) use this patternt a lot.
+You can also read about it more in [Meteor guide.](http://blazejs.org/guide/reusable-components.html#Validate-data-context) 
