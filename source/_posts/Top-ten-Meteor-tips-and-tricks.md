@@ -64,6 +64,8 @@ We can write {{foo}} and it doesn't matter.
 
 See more in [documentation](http://blazejs.org/api/spacebars.html#Comment-Tags).
 
+In the last paragraph of this [article](https://www.jetbrains.com/help/idea/2017.1/using-handlebars-and-mustache-templates.html) you can see how to setup ItelliJ Idea to use blaze/handlebars comments.
+
 
 ## #3 Validate data context of Blaze component
 First of all you already use [SimpleSchema](https://github.com/aldeed/meteor-simple-schema) for collection validations, right?
